@@ -1,8 +1,7 @@
 # lbyPhoto
 lbyPhoto
 
-#first time
-composer  install
-#after
+# composer
+composer  install 
 composer  update
 
