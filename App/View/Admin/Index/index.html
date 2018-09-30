@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>管理-首页</title>
+        <link rel="stylesheet" href="/css/frozen.css">
+        <script src="/js/jquery.min.js"></script>
+    </head>
+	
+    <body>
+    
+        <!-- header -->
+		<?php w('Common/admin_header'); ?>
+        <!-- header -->
+	    
+        <!-- Logo -->
+        <?php w('Common/common_logo',[]); ?>
+        <!-- Logo -->
+        
+        <section>
+            <h2 class="ui-center ui-border-b" style="height:80px;">管理-首页</h2>
+            
+            <div class="ui-selector-content" style="">
+                <ul >
+                    
+                    <li class="admin_moudle ui-selector-item ">
+                        <h3 class="ui-border-b">
+                            <p>站点配置</p>
+                            <span class="ui-txt-info">&nbsp;</span>
+                        </h3>
+                        <ul class="ui-list ui-border-b">
+                            <li>
+                                <div class="ui-list-info ui-border-t ui-form-item-link"><a href="/Admin/Setting/index" >站点配置</a></div>
+                            </li>
+                            <li>
+                                <div class="ui-list-info ui-border-t ui-form-item-link"><a href="/Admin/Image/checkAll" >图片修复</a></div>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!--
+                    <li class="admin_moudle ui-selector-item ">
+                        <h3 class="ui-border-b">
+                            <p>照片管理</p><span class="ui-txt-info">&nbsp;</span>
+                        </h3>
+                        <ul class="ui-list ui-border-b">
+                            <li>
+                                <div class="ui-list-info ui-border-t ui-form-item-link"><a href="###" >照片列表</a></div>
+                            </li>
+                            <li>
+                                <div class="ui-list-info ui-border-t ui-form-item-link"><a href="/Admin/Image/upload" class="ui-txt-highlight">上传照片</a></div>
+                            </li>
+                        </ul>
+                    </li>
+                    -->
+                    
+                    <li class="admin_moudle ui-selector-item ">
+                        <h3 class="ui-border-b">
+                            <p>相册管理</p><span class="ui-txt-info">&nbsp;</span>
+                        </h3>
+                        <ul class="ui-list ui-border-b">
+                            <li>
+                                <div class="ui-list-info ui-border-t ui-form-item-link"><a href="/Admin/category.html" >相册列表</a></div>
+                            </li>
+                            <li>
+                                <div class="ui-list-info ui-border-t ui-form-item-link"><a href="/Admin/category/add.html" >新建相册</a></div>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="admin_moudle ui-selector-item ">
+                        <h3 class="ui-border-b">
+                            <p>站点留言</p><span class="ui-txt-info">&nbsp;</span>
+                        </h3>
+                        <ul class="ui-list ui-border-b">
+                            <li>
+                                <div class="ui-list-info ui-border-t ui-form-item-link"><a href="###" >留言列表</a></div>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="admin_moudle ui-selector-item ">
+                        <h3 class="ui-border-b">
+                            <p>日记本</p><span class="ui-txt-info">&nbsp;</span>
+                        </h3>
+                        <ul class="ui-list ui-border-b">
+                            <li>
+                                <div class="ui-list-info ui-border-t ui-form-item-link"><a href="###" >日记列表</a></div>
+                            </li>
+                            <li>
+                                <div class="ui-list-info ui-border-t ui-form-item-link"><a href="###" >添加日记</a></div>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li class="admin_moudle ui-selector-item ">
+                        <h3 class="ui-border-b">
+                            <p onclick="javascript:window.location.href='/Admin/user/logout'">退出登录</p><span class="ui-txt-info">&nbsp;</span>
+                        </h3>
+                        
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </section>
+        
+        <!-- Footer -->
+        <?php w('Common/common_footer',[]); ?>
+        <!-- Footer -->
+        
+        <script>
+        (function (){
+            $('li.admin_moudle h3').on('click',function(){
+                var ul = $(this).next('ul');
+                if(ul.is(':hidden')){
+                    $('li.admin_moudle').removeClass('active');
+                    ul.parent().addClass('active');;
+                }else{
+                    $('li.admin_moudle').removeClass('active');
+                }
+            });
+        })();
+        </script>
+		
+    </body>
+</html>

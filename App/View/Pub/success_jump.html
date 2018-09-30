@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>:)</title>
+        <link rel="stylesheet" href="/css/frozen.css">
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="/js/jquery.min.js"></script>
+    </head>
+	
+    <body>
+    
+        <!-- header -->
+		<?php w('Common/admin_header'); ?>
+        <!-- header -->
+	    
+        <!-- Logo -->
+        <?php w('Common/common_logo',[]); ?>
+        <!-- Logo -->
+                    
+        <section>
+            <h2 class="ui-center ui-border-b" style="height:80px;font-size: 36px;font-weight:800">:)</h2>
+            <p class="ui-center"><?php echo isset($content)?$content:'操作成功'; ?></p>
+            <input type="hidden" name="jump_url" value="<?php echo isset($jump_url)?$jump_url:''; ?>" />
+        </section>
+        
+        <!-- Footer -->
+        <?php w('Common/common_footer',[]); ?>
+        <!-- Footer -->
+        
+        <script>
+        (function (){
+            var jump_url = $('input[name=jump_url]').val();
+            setTimeout(function(){
+                if(jump_url==''){
+                    window.history.back();
+                }else{
+                    window.location.href=jump_url;
+                }
+            },3000);
+        })();
+        </script>
+		
+    </body>
+</html>

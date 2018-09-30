@@ -1,0 +1,61 @@
+        <header id="navbar" >
+            
+            <div id="navbar-header">
+                <a class="dropdown-toggle ui-txt-highlight" href="/">首页</a>
+            </div>
+            
+            <div id="navbar-menubar">
+                <ul class="navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle ui-txt-highlight" href="javascript:void(0)" >相册<span class="caret"></span></a>
+                        <ul class="dropdown-menu">                            
+                            <?php foreach($categories?:[] as $v){ ?>
+                            
+                            <li><a href="/category.html?category_id=<?php echo $v['id']; ?>"><?php echo $v['name']; ?></a></li>
+                            <?php } ?>
+                            
+                        </ul>
+                    </li>
+                    
+                    <li class="dropdown">
+                        <a class="dropdown-toggle ui-txt-highlight" href="javascript:void(0)" >留言</a>
+                    </li>
+                    
+                    <li class="dropdown">
+						<?php $user = isset($_SESSION['user'])?$_SESSION['user']:[];if(empty($user)){ ?>
+                        <a class="dropdown-toggle ui-txt-highlight" href="/Admin/Login" >管理</a>
+						<?php }else{ ?>
+						<a class="dropdown-toggle ui-txt-highlight" href="/Admin" >管理</a>
+						<?php } ?>
+                    </li>
+                    
+                </ul>
+            </div>
+            
+        </header>
+        <style>
+            #navbar {height: 30px;line-height: 30px;background-color:#ccc;position: fixed;width: 100%;z-index: 100;box-shadow:0 0 10px #999;}
+            #navbar-header{display: table;float: left;margin-left:5px;}
+            #navbar-menubar{display: table;float: right;margin-right:5px;}
+            #navbar-menubar ul.navbar-nav{}
+            #navbar-menubar ul.navbar-nav li.dropdown{position:relative;display:inline-block;}
+            #navbar-menubar ul.navbar-nav li.dropdown a.dropdown-toggle{font-size: 14px;padding:0 8px;}
+            #navbar-menubar ul.navbar-nav li.dropdown a.dropdown-toggle .caret{border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px dashed;display: inline-block;height: 0;margin-left:2px;vertical-align: middle;width: 0;}
+            #navbar-menubar ul.navbar-nav li.dropdown ul{display: none;}
+            #navbar-menubar ul.navbar-nav li.dropdown ul{height: auto;position: absolute;text-align: left;top: 100%;z-index: 1000;background-color: #fff;background-clip: padding-box;min-width:100px;box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);padding:5px;left: auto;right: 0;}
+        </style>
+        
+        <script>
+            $('#navbar-menubar .dropdown-toggle').off('click').on('click',function(){
+                var ul = $(this).next('ul');
+                if(ul.is(':hidden')){
+                    $('#navbar-menubar ul.dropdown-menu').hide();
+                    ul.show();
+                }else{
+                    ul.hide();
+                    $('#navbar-menubar ul.dropdown-menu').hide();
+                }
+            });
+            
+        </script>
+        

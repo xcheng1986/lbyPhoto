@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>后台-照片列表</title>
+        <link rel="stylesheet" href="/css/frozen.css">
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="/js/jquery.min.js"></script>
+    </head>
+	
+    <body>
+    
+        <!-- header -->
+		<?php w('Common/admin_header'); ?>
+        <!-- header -->
+	    
+        <!-- Logo -->
+        <?php w('Common/common_logo',[]); ?>
+        <!-- Logo -->
+                    
+        <section>
+            <h2 class="ui-center ui-border-b" style="height:80px;">后台-照片列表</h2>
+            
+            <div id="container" >
+                <div class="ui-select ui-flex ui-flex-pack-end">
+                    <select>
+                        <option selected>按上传日期分类</option>
+                        <option>按相册分类</option>
+                        <option>按拍照日期分类</option>
+                    </select>
+                </div>
+                
+                <ul id="img_list_main">
+                    <li class="img_list_type ui-border-b">
+                        <h3 class="img_list_typeName">2017-09-13</h3>
+                        <ul>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                        </ul>
+                    </li>
+                    <li class="img_list_type ui-border-b">
+                        <h3 class="img_list_typeName">2017-09-05</h3>
+                        <ul>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                        </ul>
+                    </li>
+                    <li class="img_list_type ui-border-b">
+                        <h3 class="img_list_typeName">2017-08-22</h3>
+                        <ul>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                        </ul>
+                    </li>
+                    <li class="img_list_type ui-border-b">
+                        <h3 class="img_list_typeName">2017-07-30</h3>
+                        <ul>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                            <li class="img_list_border"><img src="/img/user_default.gif" class="img_list" /></li>
+                        </ul>
+                    </li>
+                </ul>
+                <style>
+                    #img_list_main{width:100%;height:auto;}
+                    #img_list_main .img_list_type{}
+                    #img_list_main .img_list_type .img_list_typeName{}
+                    #img_list_main .img_list_type .img_list_border{width:100px;height: 100px;overflow:hidden;margin: 3px;display: inline-block;}
+                    #img_list_main .img_list_type .img_list_border img{width:100px;height: 100px;}
+                </style>
+                
+                
+            </div>
+            
+        </section>
+        
+        <!-- Footer -->
+        <?php w('Common/common_footer',[]); ?>
+        <!-- Footer -->
+        
+        <script>
+        (function (){
+            
+        })();
+        </script>
+		
+    </body>
+</html>

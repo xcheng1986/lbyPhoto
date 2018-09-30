@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>相册-照片列表</title>
+        <link rel="stylesheet" href="/css/frozen.css">
+        <script src="/js/jquery.min.js"></script>
+        <link rel="stylesheet" href="/css/swiper.min.css" />
+        <script src="/js/swiper.min.js"></script>
+        
+    </head>
+	
+    <body onmousewheel="return false;">
+    
+        <!-- header -->
+		<?php w('Common/admin_header'); ?>
+        <!-- header -->
+	    
+        <!-- Logo -->
+        <?php w('Common/common_logo',[]); ?>
+        <!-- Logo -->
+                    
+        <!-- 相册轮播图 -->
+        <section class="gallery-w">
+            
+            <h2 class="ui-center " style="height:60px;line-height: 60px;font-size: 36px;font-weight:800">
+            <?php echo $category_info['name']; ?>
+            </h2>
+            
+            <p class="ui-center" style="height:30px;min-height:30px;line-height:30px;"><?php echo $category_info['comment']; ?></p>
+            <p class="ui-center ui-border-b ui-txt-info" style="height:30px;min-height:30px;line-height:30px;">最后上传图片的时间:<?php echo $category_info['last_upload_time']; ?></p>
+            
+            
+            <?php
+                if(!empty($user)){
+                echo '<p class="ui-center ui-border-b" style="height:30px;min-height:30px;line-height:30px;">
+                    <a href="/Admin/Image/upload?category_id='.$category_info['id'].'">上传照片</a>
+                </p>';
+                }
+            ?>
+            <?php 
+                if(empty($image_lists)){
+            ?>
+            <div class="ui-center ui-border-b ui-txt-info" style="height:300px;line-height:300px;">
+                相册暂无图片 
+                <a href="javascript:history.back(-1);">返回</a>
+            </div>
+            <?php
+                }else{
+            ?>
+			
+                        
+            <!-- 大图 -->
+            <!-- Swiper -->
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    
+                    <?php foreach($image_lists?:[] as $v){ ?>
+                    <div class="swiper-slide ui-whitespace" img_id="<?php echo $v['id']; ?>" style="">
+                        <h5 id="img_name_box"><?php echo $v['file_name']; ?></h5>
+                        <img data-src="<?php echo getImgUrl($v['id'], 500); ?>" class="swiper-lazy" />
+                        <h5 id="img_desc_box"><?php echo $v['comment']; ?></h5>
+                        <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
+                    </div>
+                    <?php } ?>
+                    
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-scrollbar"></div>
+            </div>
+            
+            <style rel="stylesheet">
+                .gallery-w{}
+                .swiper-container {width: 100%;height:500px;margin-left: auto;margin-right: auto;}
+                .swiper-slide {position:relative;background-size: cover;background-position: center;background-color: #000;overflow: hidden;}
+                .swiper-slide img {width: auto;height: auto;max-width: 100%;max-height: 100%;-ms-transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);transform: translate(-50%, -50%);position: absolute;left: 50%;top: 50%;}
+                .swiper-slide #img_desc_box,.swiper-slide #img_name_box{position: absolute;color:#FFF;width:90%;margin:0 auto; height:auto;text-align:center;z-index: 10010;text-shadow: 0 0 1px #000;line-height:1em;}
+                .swiper-slide #img_desc_box{bottom:3px;}
+                .swiper-slide #img_name_box{top:3px;}
+            </style>
+            
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    function showImgExt(index){
+                        var img_id = $('.swiper-wrapper').find('.swiper-slide').eq(index).attr('img_id');
+                        //AJAx获取图片信息
+                        $.ajax({
+                            type: "POST",
+                            url: "/Admin/Image/info?img_id="+img_id,
+                            dataType: "json",
+                            success: function(D){
+                                
+                            }
+                        });
+                    };
+                    var swiper = new Swiper('.swiper-container', {
+                        scrollbar: '.swiper-scrollbar',
+                        paginationClickable: true,
+                        preloadImages: false,
+                        lazyLoading: true,
+                        lazyLoadingInPrevNext : true,
+                        onInit: function(swiper){
+                            var index = swiper.activeIndex ;
+                            showImgExt(index);
+                        },
+                        onSlideChangeEnd: function(swiper){
+                            var index = swiper.activeIndex ;
+                            showImgExt(index);
+                        }
+                    });
+                    
+                });
+            </script>
+                
+            <?php
+                }
+            ?>
+
+        </section>
+        
+        
+        <!-- Footer -->
+        <?php w('Common/common_footer',[]); ?>
+        <!-- Footer -->
+        
+        <script>
+        (function (){
+
+        })();
+        </script>
+		
+    </body>
+</html>

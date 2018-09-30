@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>后台-照片统计</title>
+        <link rel="stylesheet" href="/css/frozen.css">
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="/js/jquery.min.js"></script>
+    </head>
+	
+    <body>
+    
+        <!-- header -->
+		<?php w('Common/admin_header'); ?>
+        <!-- header -->
+	    
+        <!-- Logo -->
+        <?php w('Common/common_logo',[]); ?>
+        <!-- Logo -->
+                    
+        <section>
+            <h2 class="ui-center ui-border-b" style="height:80px;">后台-照片统计</h2>
+            
+            <div id="container" class="ui-center">
+                <p>上传的图片通过FTP保存至<a href="#">static.liciaocheng.com</a>上</p>
+                <p>总计：127张图片。原始文件共计87.5MB，包含缩略图共计93.24MB。</p>
+                <p>
+                    <a href="#">同步(修复)文件与数据库</a>
+                    <span class="ui-txt-tips ui-txt-info">同步：某些非正常操作下数据库会和实际文件不同步，此时需要执行操作</span>
+                    <span class="ui-txt-tips ui-txt-info">修复：某些非正常情况下原图或者缩略图遗失，此时需要执行操作</span>
+                </p>
+                <p><a href="/Admin/image/lists">转到图片列表</a></p>
+            </div>
+            
+        </section>
+        
+        <!-- Footer -->
+        <?php w('Common/common_footer',[]); ?>
+        <!-- Footer -->
+        
+        <script>
+        (function (){
+            
+        })();
+        </script>
+		
+    </body>
+</html>

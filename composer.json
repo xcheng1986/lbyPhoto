@@ -1,0 +1,13 @@
+{
+    "name": "liboyangPhoto",
+    "repositories":[
+        {
+            "type": "git",
+            "url": "https://github.com/xcheng1986/lbyCore.git"
+        }
+    ],
+    "require": {
+        "aliyuncs/oss-sdk-php": "^2.3",
+        "xcheng1986/lbyCore": "~4"
+    }
+}

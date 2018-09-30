@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>管理-相册列表</title>
+        <link rel="stylesheet" href="/css/frozen.css">
+        <link rel="stylesheet" href="/css/index.css">
+        <script src="/js/jquery.min.js"></script>
+        <script type="text/javascript" src="/js/plupload.js"></script>
+    </head>
+	
+    <body>
+    
+        <!-- header -->
+		<?php w('Common/admin_header'); ?>
+        <!-- header -->
+	    
+        <!-- Logo -->
+        <?php w('Common/common_logo',[]); ?>
+        <!-- Logo -->
+                    
+        <section>
+            <h2 class="ui-center " style="height:80px;">管理-相册列表</h2>
+            
+            <p class="ui-center ui-border-b" style="height:30px;min-height:30px;line-height:30px;">
+                <a href="/Admin/Category/add.html">添加相册</a>
+            </p>
+            
+            <ul class="ui-list ui-list-link ui-border-tb" style="margin-top: 20px;">
+                <?php
+                    foreach($categories?:[] as $v){
+                ?>
+                <li class="ui-border-t">
+                    
+                    <div class="ui-list-icon">
+                        <?php echo '<span style="background-image:url('.$v['cover_image_url'].')"></span>'; ?>
+                    </div>
+                    
+                    <div class="ui-list-info">
+                        <a href="/Admin/Category/images?category_id=<?php echo $v['id']; ?>">
+                            <h4 class="ui-nowrap"><?php echo $v['name']; ?></h4>
+                            <h5 class="ui-txt-muted ui-nowrap">最后更新：<?php echo date('Y-m-d',strtotime($v['update_time'])); ?></h5>
+                        </a>
+                    </div>
+                </li>
+                <?php
+                    }
+                ?>
+            </ul>
+            
+        </section>
+        
+        <!-- Footer  -->
+        <?php w('Common/common_footer',[]); ?>
+        <!-- Footer  -->
+        
+        <script>
+        (function (){
+            
+        })();
+        </script>
+		
+    </body>
+</html>

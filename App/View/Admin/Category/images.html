@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>相册-照片列表</title>
+        <link rel="stylesheet" href="/css/frozen.css">
+        <script src="/js/jquery.min.js"></script>
+    </head>
+	
+    <body>
+    
+        <!-- header -->
+		<?php w('Common/admin_header'); ?>
+        <!-- header -->
+	    
+        <!-- Logo -->
+        <?php w('Common/common_logo',[]); ?>
+        <!-- Logo -->
+                    
+        <section >
+            
+            <h2 class="ui-center " style="height:60px;line-height: 60px;font-size: 36px;font-weight:800">
+            <?php echo $category_info['name']; ?>
+            </h2>
+            
+            <p class="ui-center " style="height:30px;min-height:30px;line-height:30px;"><?php echo $category_info['comment']; ?></p>
+            
+            
+            
+            
+            <p class="ui-center ui-border-b" style="height:30px;min-height:30px;line-height:30px;">
+                <a href="/Admin/Image/upload?category_id=<?php echo $category_info['id']; ?>">上传照片</a>
+            </p>
+            
+            
+            
+            <?php 
+                if(empty($image_lists)){
+            ?>
+            <div class="ui-center ui-border-b ui-txt-info" style="height:300px;line-height:300px;">
+                相册暂无图片 
+                <a href="javascript:history.back(-1);">返回</a>
+            </div>
+            <?php
+                }else{
+            ?>
+            
+            
+            <div id="thumbnail_img_main" >
+                
+                <!-- 缩略图 -->
+                <div id="thumbnail_ul" class="ui-justify ui-whitespace ui-border-b">
+                    <?php
+                    foreach($image_lists?:[] as $v){
+                        echo '<div class="thumbnail_img_border" >
+                            <img class="thumbnail_li_img" show_err="0" ondragstart="return false;" sid="'.$v['id'].'" src="'. getImgUrl($v['id'],90) .'" title="'.addslashes($v['comment']).'" score="'.$v['score'].'" score_times="'.$v['score_times'].'" datetime_original="'.$v['datetime_original'].'" filesize="'.$v['filesize'].'" real_width="'.$v['width'].'" real_height="'.$v['height'].'" />
+                        </div>
+                    ';
+                    }
+                    ?>
+                </div>
+
+                <!-- 图片描述 -->
+                <div id="thumbnail_img_info" style="display:none;">
+                    
+                    <input type="hidden" id="category_id" value="<?php echo $category_id; ?>"/>
+                    
+                    <div class="ui-row-flex ui-whitespace ui-border-b" style="height:40px;line-height: 40px;">
+                        <h3 class="ui-col ui-col-4">图片说明</h3>
+                        <a class="ui-col ui-col " href="javascript:void(0);" rel="关闭" id="close_img_info" style="padding:10px;"> 关闭 </a >
+                    </div>
+
+                    <ul id="thumbnail_img_info_ul">
+                        <li class="ui-row-flex ui-whitespace">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">目标</div>
+                            <div class="ui-col ui-col-4" id="old_img"></div>
+                        </li>
+                        <li class="ui-row-flex ui-whitespace">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">名称</div>
+                            <div class="ui-col ui-col-4">
+                                <input class="input_txt img_name" type="text"  name="file_name"  value="IMG_20160508_124613.jpg" placeholder="文件名" />
+                            </div>
+                        </li>
+                        <li class="ui-row-flex ui-whitespace">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">上传时间</div>
+                            <div class="ui-col ui-col-4 create_time"></div>
+                        </li>
+                        <li class="ui-row-flex ui-whitespace">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">拍摄时间</div>
+                            <div class="ui-col ui-col-4 datetime_original"></div>
+                        </li>
+                        <li class="ui-row-flex ui-whitespace">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">图片描述</div>
+                            <div class="ui-col ui-col-4">
+                                <textarea class="input_txt comment" name="file_name" placeholder="图片描述">这是这个图片的文字描述及简介部分内容</textarea>
+                            </div>
+                        </li>
+                        <!--
+                        <li class="ui-row-flex ui-whitespace">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">上传者</div>
+                            <div class="ui-col ui-col-4">李小程</div>
+                        </li>
+                        -->
+                        <li class="ui-row-flex ui-whitespace">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">照片评分</div>
+                            <div class="ui-col ui-col-4"><span class="score">0.0</span>分(<span class="score_times">0</span>人次)</div>
+                        </li>
+                        <li class="ui-row-flex ui-whitespace">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">原图大小</div>
+                            <div class="ui-col ui-col-4 filesize">0M</div>
+                        </li>
+                        <li class="ui-row-flex ui-whitespace">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">原图尺寸</div>
+                            <div class="ui-col ui-col-4"><span class="width">0</span>宽 * <span class="height">0</span>高</div>
+                        </li>
+                        
+                        <li class="ui-row-flex ui-whitespace" style="height:auto;">
+                            <div class="ui-col ui-col ui-border-r ui-txt-info">操作</div>
+                            <div class="ui-col ui-col-4 img_action" style="height:auto;line-height:40px;">
+                                <a href="javascript:void(0);" id="saveChange">保存修改</a>
+                                <a href="javascript:void(0);" id="setCover">设为封面</a>
+                                <a href="javascript:void(0);" id="check1repair">检查文件并修复</a>
+                                <a href="javascript:void(0);" id="rotate_img">旋转</a>
+                                <a href="javascript:void(0);" id="delete_img">删除</a>
+                                <a href="/category.html?category_id=<?php echo $category_info['id']; ?>" >跳转到该相册</a>
+                                <a href="javascript:void(0);" id="show_real_img">查看大图</a>
+                            </div>
+                        </li>
+                        <li id="largeImg" class="ui-row-flex ui-whitespace" style="text-align: center;height: auto;">
+                            
+                        </li>
+                        
+                    </ul>
+                </div>
+                
+            </div>
+            
+            <style>
+                #thumbnail_img_main{position: relative;}
+                #thumbnail_ul{width: 100%;height: auto;padding:10px 0;}
+                #thumbnail_ul .thumbnail_img_border{display:inline-block;width: 90px;height: 90px;border: 1px solid #666;margin:2px;text-align: center;background:#eee;}
+                #thumbnail_ul .thumbnail_img_border img{width:100%;height:100%;}
+                #thumbnail_img_info{width: 100%;height: auto;background-color:#CCC; position: absolute;top:110px;z-index: 1003;box-shadow: 0 0 20px 0px #333;}
+                .current_img_select{box-shadow: 0 0 30px #000;}
+                #thumbnail_img_info_ul .input_txt{text-align:left;background-color:#FFF;width:100%;}
+                #thumbnail_img_info_ul .img_action a{margin:5px;white-space: nowrap;border: 1px solid #999;background-color:#FFF;padding:4px;border-radius:3px;}
+            </style>
+            
+            <?php } ?>
+
+        </section>
+        
+        <section>
+            <h2 class="ui-center ui-border-b" style="height:80px;font-size:24px;font-weight:800">修改相册信息</h2>
+
+            <form action="/Admin/Category/toEdit.html?category_id=<?php echo $category_info['id']; ?>" method="POST">
+                <div class="ui-form-item ui-form-item-pure ui-border-b">
+                    <input type="text" name="name" value="<?php echo $category_info['name']; ?>" placeholder="相册名称(必填)">
+                    <a href="javascript:void(0);" class="ui-icon-close"></a>
+                </div>
+                
+                <div class="ui-form-item ui-form-item-pure ui-border-b" style="height:4em;">
+                    <textarea  type="text" name="comment" placeholder="相册描述(可选)" style="height:100%;"><?php echo $category_info['comment']; ?></textarea>
+                    <a href="javascript:void(0);" class="ui-icon-close"></a>
+                </div>
+
+                <div class="ui-form-item ui-form-item-pure ui-border-b">
+                    <input type="text" value="<?php echo $category_info['dir']; ?>" disabled="true" readonly="true" />
+                </div>
+                
+                <div class="ui-form-item ui-form-item-pure ui-border-b">
+                    <input type="text" name="rank" value="<?php echo $category_info['rank']; ?>" placeholder="相册排序ID(选填)">
+                    <a href="javascript:void(0);" class="ui-icon-close"></a>
+                </div>
+
+                <div class="ui-form-item ui-form-item-radio ui-border-b">
+                    <span>是否开放浏览：</span>
+                    <label class="ui-radio" style="width: 80px" >
+                        <input type="radio" <?php if($category_info['is_public']=='public'){echo 'checked';} ?> name="is_public" value="public" style="margin-right:0;">是
+                    </label>
+                    <label class="ui-radio" style="width: 80px" >
+                        <input type="radio" <?php if($category_info['is_public']=='private'){echo 'checked';} ?> name="is_public" value="private" style="margin-right:0;">否
+                    </label>
+                </div>
+
+                <div class="ui-form-item ui-form-item-radio ui-border-b">
+                    <span>是否允许评论：</span>
+                    <label class="ui-radio" style="width: 80px" >
+                        <input type="radio" <?php if($category_info['commentable']=='true'){echo 'checked';} ?> name="commentable" value="true" style="margin-right:0;">是
+                    </label>
+                    <label class="ui-radio" style="width: 80px" >
+                        <input type="radio" <?php if($category_info['commentable']=='false'){echo 'checked';} ?> name="commentable" value="false" style="margin-right:0;">否
+                    </label>
+                </div>
+
+                <div class="ui-form-item ui-form-item-switch ui-border-b">
+                    <span>照片排序方式：</span>
+                    <select name="image_order">
+                        <?php
+                            $arr = config('IMAGE_ORDER_KEYS');
+                            foreach($arr as $k => $v){
+                        ?>
+                        <option value="<?php echo $k; ?>" <?php if($category_info['image_order']==$k){echo 'selected'; } ?> ><?php echo $v['name']; ?></option>
+                        <?php
+                            }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="ui-form-item ui-form-item-pure ui-border-b">
+                    <input type="text" name="permalink" placeholder="短连接名称(可选)" value="<?php echo $category_info['permalink']; ?>" />
+                    <a href="javascript:void(0);" class="ui-icon-close"></a>
+                </div>
+
+                <div class="ui-btn-wrap">
+                    <button class="ui-btn-lg ui-btn-danger">确定</button>
+                </div>
+
+            </form>
+
+            
+        </section>
+        
+        <!-- Footer -->
+        <?php w('Common/common_footer',[]); ?>
+        <!-- Footer -->
+        
+        <script>
+        (function (){
+            var category_id = $('#category_id').val();
+            function alert(message,close){
+                $('#alert_body').remove();
+                var html = '<div id="alert_body" class="ui-poptips ui-poptips-info" style="top:50%;display:none;"><div class="ui-poptips-cnt"><i></i><span>温馨提示内容</span></div></div>';
+                $('body').append($(html));
+                $('#alert_body').show().find('span').html(message);
+                
+                setTimeout(function(){
+                    $('#alert_body').remove();
+                },1000*parseInt(close));
+            }
+            
+            $('.thumbnail_li_img').off('click').on('click',function(){
+                
+                var this_img = $(this), sid = $(this).attr('sid');
+                var border_obj = $(this).parent();
+                $('.thumbnail_img_border').removeClass('current_img_select');
+                $(this).parent().addClass('current_img_select');
+                
+                //AJAx获取图片信息
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Image/info?img_id="+sid,
+                    dataType: "json",
+                    success: function(D){
+                        if(D.status==0){
+                            $('#thumbnail_img_info').find('.img_name').val(D.data.file_name);
+                            $('#thumbnail_img_info').find('.datetime_original').html(D.data.datetime_original);
+                            $('#thumbnail_img_info').find('.comment').val(D.data.comment);
+                            $('#thumbnail_img_info').find('.filesize').html((D.data.filesize/1024/1024).toFixed(2)+"MB");
+                            $('#thumbnail_img_info').find('.width').html(D.data.width);
+                            $('#thumbnail_img_info').find('.height').html(D.data.height);
+                            $('#thumbnail_img_info').find('.score').html(D.data.score);
+                            $('#thumbnail_img_info').find('.score_times').html(D.data.score_times);
+                            $('#thumbnail_img_info').find('.create_time').html(D.data.create_time);
+                        }else{
+                            alert(D.info?D.info:'图片信息未找到',2);
+                        }
+                    }
+                });
+                $('#show_real_img').show();
+                $('#largeImg').html('');
+                $('#thumbnail_img_info').css('top',this_img.position().top+140);
+                $('#thumbnail_img_info').hide().show(0,function(){
+                    $('#old_img').html('');
+                    this_img.clone().appendTo($('#old_img'));
+                    
+                    $("body,html").animate({
+                        scrollTop: this_img.position().top+500
+                    },500); 
+                    
+                });
+                
+                //保存修改图片信息
+                $('#saveChange').off('click').on('click',function(){
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/Image/edit?img_id="+sid,
+                        data : {
+                            file_name : $('#thumbnail_img_info').find('.img_name').val(),
+                            comment : $('#thumbnail_img_info').find('.comment').val()
+                        },
+                        dataType: "json",
+                        success: function(D){
+                            $('#thumbnail_img_info').hide();
+                            alert(D.info,1);
+                        },
+                        complete: function(){
+                            
+                        }
+                    });
+                });
+                
+                //设为封面
+                $('#setCover').off('click').on('click',function(){
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/Category/setCover?img_id="+sid+'&category_id='+category_id,
+                        dataType: "json",
+                        success: function(D){
+                            $('#thumbnail_img_info').hide();
+                            alert(D.info,1);
+                        },
+                        complete: function(){
+                            
+                        }
+                    });
+                });
+                
+                //删除图片
+                $('#delete_img').off('click').on('click',function(){
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/Image/delete?img_id="+sid,
+                        dataType: "json",
+                        success: function(D){
+                            if(D.status==0){
+                                border_obj.remove();
+                                $('#thumbnail_img_info').hide();
+                            }
+                            alert(D.info,1);
+                        },
+                        complete: function(){
+                            
+                        }
+                    });
+                });
+                
+                //旋转图片
+                $('#rotate_img').off('click').on('click',function(){
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/Image/rotate?img_id="+sid,
+                        dataType: "json",
+                        success: function(D){
+                            if(D.status==0){
+                                this_img.attr('src',this_img.attr('src')+'?_='+Math.random());
+                                $('#old_img').html('<img src="'+(this_img.attr('src')+Math.random())+'">');
+                            }
+                            alert(D.info,1);
+                        },
+                        complete: function(){
+                            
+                        }
+                    });
+                });
+                
+                //检查文件并修复
+                $('#check1repair').off('click').on('click',function(){
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/Image/check1repair?img_id="+sid,
+                        dataType: "json",
+                        success: function(D){
+                            if(D.status==0){
+                                this_img.attr('src',this_img.attr('src')+'?_='+Math.random());
+                                $('#old_img').html('<img src="'+(this_img.attr('src')+Math.random())+'">');
+                            } 
+                            alert(D.info,1);
+                        },
+                        complete: function(){
+                            
+                        }
+                    });
+                });
+                
+                //查看大图
+                $('#show_real_img').off('click').on('click',function(){
+                    $('#largeImg').html('<img src="/Image/show?img_id='+sid+'&size=300&round='+Math.random()+'" style="max-width: 300px;margin:0 auto;" />');
+                });
+                
+                //关闭弹窗
+                $('#close_img_info').off('click').on('click',function(){
+                    $('#thumbnail_img_info').hide(200);
+                    $('.thumbnail_img_border').css('borderColor','#666');
+                    $('.thumbnail_img_border').removeClass('current_img_select');
+                });
+                
+            });
+
+            
+            //显示出错时
+            $('.thumbnail_li_img').on('error',function(){
+                $(this).attr('src','/img/img_404.jpg').attr('show_err',1);
+            });
+        })();
+        </script>
+		
+    </body>
+</html>

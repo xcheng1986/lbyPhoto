@@ -1,0 +1,20 @@
+        <?php
+            $background_img = config('BACKGROUND_IMG');//
+            $background_img_style='30px solid #ccc;background: #FFF url('.($background_img?($background_img.'?version='.config('SET_VERSION')):'/img/background_img.jpg').') repeat-x center bottom scroll;';
+        
+            $site_logo = config('SITE_LOGO');
+            $site_logo_style='background-image:url('.($site_logo?($site_logo.'?version='.config('SET_VERSION')):'/img/site_logo.jpg').');';
+            
+            $site_css = config('SITE_CSS')?:'.logo_box_shadow{box-shadow:inset 0 0 10px 0px #2ac;}';
+        ?>
+        <style><?php echo $site_css; ?></style>
+        <div class="ui-center ui-border-b" style="<?php echo $background_img_style; ?>" >
+            <div class="ui-avatar-lg">
+                <span style="<?php echo $site_logo_style; ?>" class="logo_box_shadow" ></span>
+            </div>
+            <h1 class="ui-txt-highlight" style="text-shadow: 0 0 2px red;"><?php echo config('SITE_TITLE'); ?></h1>
+            <h5 class="ui-txt-info" style="text-shadow: 0 0 2px #000;color:#C6C6C6;"><?php echo config('SITE_DESCRIPTION'); ?></h5>
+        </div>
+
+
+

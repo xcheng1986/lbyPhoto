@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <title>相册-添加</title>
+        <link rel="stylesheet" href="/css/frozen.css">
+        <script src="/js/jquery.min.js"></script>
+    </head>
+	
+    <body>
+    
+        <!-- header -->
+		<?php w('Common/admin_header'); ?>
+        <!-- header -->
+	    
+        <!-- Logo -->
+        <?php w('Common/common_logo',[]); ?>
+        <!-- Logo -->
+            
+        
+        <section>
+            <h2 class="ui-center ui-border-b" style="height:80px;">相册-添加</h2>
+            
+            <form action="/Admin/Category/toAdd.html" method="POST">
+                <div class="ui-form-item ui-form-item-pure ui-border-b">
+                    <input type="text" name="name" placeholder="相册名称(必填)">
+                    <a href="javascript:void(0);" class="ui-icon-close"></a>
+                </div>
+                <div class="ui-form-item ui-form-item-pure ui-border-b" style="height:4em;">
+                    <textarea  type="text" name="comment" placeholder="相册描述(可选)" style="height:100%;"></textarea>
+                    <a href="javascript:void(0);" class="ui-icon-close"></a>
+                </div>
+                
+                <div class="ui-form-item ui-form-item-pure ui-border-b">
+                    <input type="text" name="dir" placeholder="相册英文名称(可选、仅支持英文和数字)">
+                    <a href="javascript:void(0);" class="ui-icon-close"></a>
+                </div>
+                
+                <div class="ui-form-item ui-form-item-pure ui-border-b">
+                    <input type="text" name="rank" value="" placeholder="相册排序ID(选填，数字，默认100)">
+                    <a href="javascript:void(0);" class="ui-icon-close"></a>
+                </div>
+                
+                <div class="ui-form-item ui-form-item-radio ui-border-b">
+                    <span>是否开放浏览：</span>
+                    <label class="ui-radio" style="width: 80px" >
+                        <input type="radio" checked name="is_public" value="public" style="margin-right:0;">是
+                    </label>
+                    <label class="ui-radio" style="width: 80px" >
+                        <input type="radio" name="is_public" value="private" style="margin-right:0;">否
+                    </label>
+                </div>
+                
+                <div class="ui-form-item ui-form-item-radio ui-border-b">
+                    <span>是否允许评论：</span>
+                    <label class="ui-radio" style="width: 80px" >
+                        <input type="radio" checked name="commentable" value="true" style="margin-right:0;">是
+                    </label>
+                    <label class="ui-radio" style="width: 80px" >
+                        <input type="radio" name="commentable" value="false" style="margin-right:0;">否
+                    </label>
+                </div>
+                
+                <div class="ui-form-item ui-form-item-switch ui-border-b">
+                    <span>照片排序方式：</span>
+                    <select name="image_order">
+                        <?php
+                            $arr = config('IMAGE_ORDER_KEYS');
+                            foreach($arr as $k => $v){
+                        ?>
+                        <option value="<?php echo $k; ?>"><?php echo $v['name']; ?></option>
+                        <?php
+                            }
+                        ?>
+                    </select>
+                </div>
+                
+                <div class="ui-form-item ui-form-item-pure ui-border-b">
+                    <input type="text" name="permalink" placeholder="短连接名称(可选)">
+                    <a href="javascript:void(0);" class="ui-icon-close"></a>
+                </div>
+                
+                <div class="ui-btn-wrap">
+                    <button class="ui-btn-lg ui-btn-danger">确定</button>
+                </div>
+                
+            </form>
+            
+        </section>
+        
+        <!-- Footer -->
+        <?php w('Common/common_footer',[]); ?>
+        <!-- Footer -->
+        
+        <script>
+        (function (){
+            
+        })();
+        </script>
+		
+    </body>
+</html>
