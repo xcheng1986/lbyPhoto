@@ -2,6 +2,6 @@
 lbyPhoto
 
 # composer
- composer  install 
- composer  update
+- composer  install 
+- composer  update
 
