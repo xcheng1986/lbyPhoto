@@ -24,9 +24,13 @@ class Image extends \App\Controller\Common
         $size = isset($_GET['size']) ? intval($_GET['size']) : 0;
         $img_id = isset($_GET['img_id']) ? intval($_GET['img_id']) : 0;
 
-        $model = db();
-        $info = $model->find('SELECT * FROM `images` WHERE id=' . $img_id . ' limit 1');
-        $this->show_image($info, $size);
+        if ($img_id) {
+            $model = db();
+            $info = $model->find('SELECT * FROM `images` WHERE id=' . $img_id . ' limit 1');
+            $this->show_image($info, $size);
+        } else {
+            $this->show_image([], $size);
+        }
     }
 
     private function show_image($file_info, $size)

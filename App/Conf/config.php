@@ -59,7 +59,9 @@ return array_merge([
         'Bucket' => $_SERVER['CFG_PHPTO_OSS_BUCKET'],
         'EndPoint' => $_SERVER['CFG_PHPTO_OSS_ENDPOINT'],
     ],
-], $user_setting);
+    //OSS配置图片展示的大小
+    'OSS_IMG_SIZE_LIST' => [0, 90, 120, 500],
+    ], $user_setting);
 
 
 

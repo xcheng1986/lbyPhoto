@@ -51,7 +51,7 @@ class Index extends Common
             //封面图片ID(方便后期扩展)
             $c['cover_image_id'] = $cover_image_id ?: 0;
             //封面图片url
-            $c['cover_image_url'] = $IMAGE->get_category_cover_img_url($cover_image_id);
+            $c['cover_image_url'] = $IMAGE->get_category_cover_img_url($cover_image_id, 90) ?: getImgUrl(0, 90);
         }
 
         $this->assign('categories', $categories);

@@ -150,9 +150,24 @@ class Image extends \App\Controller\Common
      * @param type $image_id
      * @return type
      */
-    public function get_category_cover_img_url($image_id = 0)
+    public function get_category_cover_img_url($image_id = 0, $size = 90)
     {
-        return getImgUrl($image_id, 90);
+        $info = $this->info($image_id);
+        if (empty($info)) {
+            return false;
+        }
+
+        $url = $info['url'] ?: '';
+        if ($url == '') {
+            return false;
+        }
+
+
+        if (is_array($size, config('OSS_IMG_SIZE_LIST'))) {
+            return $url . '?x-oss-process=style/size' . $size;
+        } else {
+            return false;
+        }
     }
 
     /**
