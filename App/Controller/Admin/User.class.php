@@ -26,7 +26,7 @@ class User extends \App\Controller\Admin\Common
 		session_unset();
 		session_destroy();
 		setcookie(session_name(), '', time() - 1);
-		$this->success('退出成功', '/index.html');
+		$this->success('退出成功', '/');
 	}
 
 }

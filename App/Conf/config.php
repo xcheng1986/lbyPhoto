@@ -34,6 +34,7 @@ return array_merge([
     'DATA_CACHE_TIME' => 0,
     'DATA_CACHE_PREFIX' => $_SERVER['CFG_PHPTO_DATA_CACHE_PREFIX'],
     'APP_KEY' => $_SERVER['CFG_PHPTO_APP_KEY'],
+    'KEY_PRIVATE' => $_SERVER['CFG_JOB_KEY_PRIVATE'] ?: '',
     #
     'LOG_FILE_DIR' => $_SERVER['CFG_PHPTO_RUNTIME_DIR'],
     #

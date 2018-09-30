@@ -10,11 +10,12 @@ namespace App\Controller\Admin;
 class Common extends \App\Controller\Common
 {
 
-	public function __construct()
-	{
-		$user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
-		if (empty($user))
-			$this->error('请登录', '/Admin/Login');
-	}
+    public function __construct()
+    {
+        $user = isset($_SESSION['user']) ? $_SESSION['user'] : [];
+        if (empty($user)) {
+            $this->error('请登录', '/Admin/Login/index');
+        }
+    }
 
 }

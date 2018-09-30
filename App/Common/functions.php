@@ -73,15 +73,20 @@ function is_phoneNumber($phone_number)
 	return preg_match('/^1\d{10}$/', $phone_number) ? true : false;
 }
 
+/**
+ * 发送手机短信验证码
+ * @param type $phone
+ * @param type $code
+ * @return type
+ */
 function sendYMZ($phone, $code)
 {
-	define('KEY_PRIVATE', 'xcheng1986!@#$%^');
-	$url = 'http://job.lixiaocheng.com/aliyun_mns/index.php';
+    $url = 'http://job.lixiaocheng.com/aliyun_mns/index.php';
 	$res = mycurl($url, 'json', 'POST', [
 		'phone' => $phone,
 		'code' => $code,
-		'token' => md5($phone . KEY_PRIVATE . $code)
-	]);
+		'token' => md5($phone . config('KEY_PRIVATE') . $code)
+    ]);
 	return isset($res['status']) ? ($res['status'] == 0 ? true : false) : FALSE;
 }
 

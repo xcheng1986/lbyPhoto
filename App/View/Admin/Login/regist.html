@@ -15,7 +15,7 @@
     <body>
     
         <!-- header -->
-		<?php w('Common/admin_header'); ?>
+        <?php w('Common/admin_header'); ?>
         <!-- header -->
 	    
         <!-- Logo -->
@@ -69,7 +69,7 @@
                 
                 $.ajax({
                     type: "POST",
-                    url: "/admin/login",
+                    url: "/admin/login/send_code",
                     data: "phone="+phone_number+"&type=regist_verify",
                     dataType: "json",
                     success: function(D){
@@ -94,9 +94,6 @@
                     complete: function(){
                     }
                 });
-            });
-            $('#login_form').on('submit',function(){
-                
             });
         })();
         </script>
