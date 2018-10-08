@@ -25,8 +25,9 @@
         <div class="ui-select ui-flex ui-flex-pack-end">
             <select id="category_order">
                 <?php
-                    foreach($order_arr as $key=>$name)
+                    foreach($order_arr as $key=>$name){
                         echo '<option value="'.$key.'" '.($order==$key?'selected':'').'>'.$name.'</option>';
+                    }
                 ?>
             </select>
         </div>
@@ -37,7 +38,7 @@
             <li class="ui-border-radius" style="margin-top:10px;overflow: hidden;cursor: pointer;">
                 <a href="/category.html?category_id=<?php echo $v['id']; ?>">
                     <div class="test-img">
-                        <img src="<?php echo $v['cover_image_url']; ?>" title="" style="width:120px;height:120px;" />
+                        <img src="<?php echo $v['cover_image_url']; ?>" title="" />
                     </div>
                     <p>
                         <h3 class="ui-txt-default ui-nowrap ui-whitespace"><?php echo $v['name']; ?></h3>

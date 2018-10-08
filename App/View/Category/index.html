@@ -62,7 +62,7 @@
                     <?php foreach($image_lists?:[] as $v){ ?>
                     <div class="swiper-slide ui-whitespace" img_id="<?php echo $v['id']; ?>" style="">
                         <h5 id="img_name_box"><?php echo $v['file_name']; ?></h5>
-                        <img data-src="<?php echo getImgUrl($v['id'], 500); ?>" class="swiper-lazy" />
+                        <img data-src="<?php echo $v['url_show']; ?>" class="swiper-lazy" />
                         <h5 id="img_desc_box"><?php echo $v['comment']; ?></h5>
                         <div class="swiper-lazy-preloader swiper-lazy-preloader-white"></div>
                     </div>

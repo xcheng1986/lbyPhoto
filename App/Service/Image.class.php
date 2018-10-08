@@ -150,7 +150,7 @@ class Image extends \App\Controller\Common
      * @param type $image_id
      * @return type
      */
-    public function get_category_cover_img_url($image_id = 0, $size = 90)
+    public function get_category_cover_img_url($image_id = 0, $size = '90')
     {
         $info = $this->info($image_id);
         if (empty($info)) {
@@ -162,11 +162,21 @@ class Image extends \App\Controller\Common
             return false;
         }
 
+        return $this->getNewUrl($url, $size);
+    }
 
-        if (is_array($size, config('OSS_IMG_SIZE_LIST'))) {
+    /**
+     * 获取新的URL
+     * @param type $url
+     * @param type $size
+     * @return type
+     */
+    public function getNewUrl($url, $size)
+    {
+        if (in_array($size, config('OSS_IMG_SIZE_LIST'))) {
             return $url . '?x-oss-process=style/size' . $size;
         } else {
-            return false;
+            return getImgUrl(0, $size);
         }
     }
 

@@ -43,7 +43,7 @@ class Login extends \App\Controller\Common
 
         $_SESSION['user'] = $user_info;
         $USER->updateUserLogin($user_info['id']);
-        $this->success('登录成功', '/admin/index.html');
+        $this->success('登录成功', '/admin');
     }
 
     /**

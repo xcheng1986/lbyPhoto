@@ -60,7 +60,7 @@ return array_merge([
         'EndPoint' => $_SERVER['CFG_PHPTO_OSS_ENDPOINT'],
     ],
     //OSS配置图片展示的大小
-    'OSS_IMG_SIZE_LIST' => [0, 90, 120, 500],
+    'OSS_IMG_SIZE_LIST' => [0, 90, 120, '120d', 500],
     ], $user_setting);
 
 

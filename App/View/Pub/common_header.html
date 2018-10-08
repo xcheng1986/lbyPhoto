@@ -10,8 +10,7 @@
                         <a class="dropdown-toggle ui-txt-highlight" href="javascript:void(0)" >相册<span class="caret"></span></a>
                         <ul class="dropdown-menu">                            
                             <?php foreach($categories?:[] as $v){ ?>
-                            
-                            <li><a href="/category.html?category_id=<?php echo $v['id']; ?>"><?php echo $v['name']; ?></a></li>
+                            <li><a href="/Category?category_id=<?php echo $v['id']; ?>"><?php echo $v['name']; ?></a></li>
                             <?php } ?>
                             
                         </ul>
@@ -22,11 +21,11 @@
                     </li>
                     
                     <li class="dropdown">
-						<?php $user = isset($_SESSION['user'])?$_SESSION['user']:[];if(empty($user)){ ?>
-                        <a class="dropdown-toggle ui-txt-highlight" href="/Admin/Login" >管理</a>
-						<?php }else{ ?>
-						<a class="dropdown-toggle ui-txt-highlight" href="/Admin" >管理</a>
-						<?php } ?>
+                        <?php $user = isset($_SESSION['user'])?$_SESSION['user']:[];if(empty($user)){ ?>
+                        <a class="dropdown-toggle ui-txt-highlight" href="/Admin/Login/index" >管理</a>
+                        <?php }else{ ?>
+                        <a class="dropdown-toggle ui-txt-highlight" href="/Admin" >管理</a>
+                        <?php } ?>
                     </li>
                     
                 </ul>
@@ -56,6 +55,5 @@
                     $('#navbar-menubar ul.dropdown-menu').hide();
                 }
             });
-            
         </script>
         
