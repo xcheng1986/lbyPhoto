@@ -2,6 +2,8 @@
 
 namespace App\Controller\Admin;
 
+use App\Service\Oss;
+
 /**
  * Description of Photo
  *
@@ -94,27 +96,20 @@ class Image extends \App\Controller\Admin\Common
      */
     public function toUpload()
     {
-        header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); //设置过期时间
-        header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-        header("Cache-Control: no-store, no-cache, must-revalidate");
-        header("Cache-Control: post-check=0, pre-check=0", false);
-        header("Pragma: no-cache");
-        set_time_limit(1 * 60);
-
         $category_id = isset($_GET['category']) ? intval($_GET['category']) : 0;
         if ($category_id < 1) {
             $this->setResult(1, '请选择相册');
         }
 
         $CATEGORY = new \App\Service\Category();
-        $info = $CATEGORY->info($category_id);
-        if (empty($info)) {
+        $category_info = $CATEGORY->info($category_id);
+        if (empty($category_info)) {
             $this->setResult(2, '相册未找到');
         }
 
         //调用上传
         $IMAGE = new \App\Service\Image();
-        $R = $IMAGE->upload_img_to_local($_FILES['file'], $info['dir']);
+        $R = $IMAGE->upload_img_to_local($_FILES['file'], $category_info['dir']);
         if (!$R) {
             $this->setResult(3, '上传失败');
         }
@@ -127,6 +122,9 @@ class Image extends \App\Controller\Admin\Common
         if (!$insert_id) {
             $this->setResult(4, '上传失败[insert error]');
         }
+
+        //上传到阿里云OSS
+        (new Oss())->uploadFile($category_info['dir'], realpath($R['data']['file_path']), 'img');
 
         //修改相册最后更新时间
         $CATEGORY->update_category_last_upload_time($category_id);
@@ -150,8 +148,9 @@ class Image extends \App\Controller\Admin\Common
         $img_id = isset($_GET['img_id']) ? intval($_GET['img_id']) : 0;
         $model = db();
         $info = $model->find('select * from `images` where id=' . $img_id . ' limit 1');
-        if (!$info)
+        if (!$info) {
             $this->setResult(1, '图片未找到');
+        }
 
         $this->setResult(0, 'OK', $info);
     }
@@ -173,8 +172,9 @@ class Image extends \App\Controller\Admin\Common
         $model = db();
         $sql = 'update `images` set file_name="' . $file_name . '",comment="' . $comment . '" where id=' . $img_id . ' limit 1';
         $res = $model->update($sql);
-        if (!$res)
+        if (!$res) {
             $this->setResult(2, '修改图片信息失败');
+        }
         $this->setResult(0, '修改图片信息成功');
     }
 
